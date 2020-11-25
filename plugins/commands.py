@@ -11,10 +11,15 @@ logger = logging.getLogger(__name__)
 @Client.on_message(filters.command('start'))
 async def start(bot, message):
     """Start command handler"""
-    buttons = [[
+    buttons = [
+       [
+        InlineKeyboardButton('Join Group', url='https://t.me/ask_me_movies')
+       ],
+       [
         InlineKeyboardButton('Search Here', switch_inline_query_current_chat=''),
         InlineKeyboardButton('Go Inline', switch_inline_query=''),
-    ]]
+       ]
+    ]
     reply_markup = InlineKeyboardMarkup(buttons)
     await message.reply(START_MSG, reply_markup=reply_markup)
 
