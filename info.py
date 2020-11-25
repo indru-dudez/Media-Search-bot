@@ -28,4 +28,5 @@ START_MSG = """
 Here you can search files in inline mode. Just press following buttons and start searching.
 """
 
-SHARE_BUTTON_TEXT = 'Checkout {username} for searching files'
+SHARE_BUTTON_TEXT = 'Checkout {username} for searching movies'
+AUTH_CHANEL = "@ask_me_movies"
