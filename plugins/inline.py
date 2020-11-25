@@ -1,25 +1,25 @@
 from urllib.parse import quote
 from pyrogram import Client, filters, emoji
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQueryResultCachedDocument
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQueryResultCachedDocument, InlineQuery
 from utils import get_search_results
 from info import MAX_RESULTS, CACHE_TIME, SHARE_BUTTON_TEXT
 
 
 @Client.on_inline_query()
-async def answer(bot, query):
+async def answer(_, i_query: InlineQuery):
     """Show search results for given inline query"""
 
     results = []
-    if '|' in query.query:
-        string, file_type = query.query.split('|', maxsplit=1)
+    if '|' in i_query.query:
+        string, file_type = i_query.query.split('|', maxsplit=1)
         string = string.strip()
         file_type = file_type.strip().lower()
     else:
-        string = query.query.strip()
+        string = i_query.query.strip()
         file_type = None
     
-    offset = int(query.offset or 0)
-    reply_markup = get_reply_markup(bot.username)
+    offset = int(i_query.offset or 0)
+    reply_markup = get_reply_markup(_.username)
     files, next_offset = await get_search_results(string,
                                                   file_type=file_type,
                                                   max_results=MAX_RESULTS,
@@ -40,7 +40,7 @@ async def answer(bot, query):
         if string:
             switch_pm_text += f" for {string}"
 
-        await query.answer(results=results,
+        await i_query.answer(results=results,
                            cache_time=CACHE_TIME,
                            switch_pm_text=switch_pm_text,
                            switch_pm_parameter="start",
@@ -51,7 +51,7 @@ async def answer(bot, query):
         if string:
             switch_pm_text += f' for "{string}"'
 
-        await query.answer(results=[],
+        await i_query.answer(results=[],
                            cache_time=CACHE_TIME,
                            switch_pm_text=switch_pm_text,
                            switch_pm_parameter="okay")
