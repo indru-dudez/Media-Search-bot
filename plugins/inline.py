@@ -1,3 +1,4 @@
+import pyrogram
 from urllib.parse import quote
 from pyrogram import Client, filters, emoji
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQueryResultCachedDocument, InlineQuery
