@@ -23,7 +23,11 @@ async def sendtoall(bot, message):
     myclient = pymongo.MongoClient(DATABASE_URI)
     mydb = myclient["mydatabase"]
     starters_db = mydb["starters"]
-    total_sub = len(starters_db.find())
+    all_sub = []
+    for one_sub in starters_db.find():
+         one_id = one_sub.get("id")
+         all_sub.append(one_id)
+    total_sub = len(all_sub)
     sent_sub = 0
     for sent in subscribers:
        await bot.send_message(
@@ -46,7 +50,7 @@ async def start(bot, message):
     mydb = myclient["mydatabase"]
     starters_db = mydb["starters"]
     if not message.chat.id in starters_db.find():
-         added = starters_db.insert_one(message.chat.id)  
+         added = starters_db.insert_one(message)
     buttons = [
        [
         InlineKeyboardButton('Join Channel', url='https://t.me/{}'.format(AUTH_CHANEL[1:]))
