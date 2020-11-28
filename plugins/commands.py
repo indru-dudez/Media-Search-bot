@@ -19,7 +19,7 @@ async def sendtoall(bot, message):
     subscribers = await bot.get_chat_members(
                       chat_id=AUTH_CHANEL
                   )
-    total_sub = len(set(subscribers))
+    total_sub = len(subscribers)
     sent_sub = 0
     for sent in subscribers:
        await bot.send_message(
