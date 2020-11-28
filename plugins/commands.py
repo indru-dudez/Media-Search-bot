@@ -10,6 +10,22 @@ logger = logging.getLogger(__name__)
 @Client.on_message(filters.command('sendtoall'))
 async def sendtoall(bot, message):
     """Start command handler"""
+    if message.reply_to_message is None:
+       await message.send_message(
+            chat_id=message.chat.id,
+            text="Reply to text message",
+            reply_to_message_id=message.message_id
+        )
+    subscribers = await bot.get_chat_members(
+                      chat_id=AUTH_CHANEL
+                  )
+    for sent in subscribers:
+       await message.send_message(
+            chat_id=message.chat.id,
+            text=sent,
+            reply_to_message_id=message.message_id
+       )
+    return
 
 @Client.on_message(filters.command('start'))
 async def start(bot, message):
