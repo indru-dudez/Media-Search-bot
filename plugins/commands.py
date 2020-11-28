@@ -13,7 +13,7 @@ async def start(bot, message):
     """Start command handler"""
     buttons = [
        [
-        InlineKeyboardButton('Join Group', url='https://t.me/{}'.format(FORCE_JOIN_USERNAME[1:]))
+        InlineKeyboardButton('Join Group', url='https://t.me/{}'.format(AUTH_CHANEL[1:]))
        ],
        [
         InlineKeyboardButton('Search Here', switch_inline_query_current_chat=''),
