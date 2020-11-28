@@ -23,10 +23,10 @@ COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 
 # Messages
 START_MSG = """
-**Hi, I'm Movie Search bot**
+**Hi, I'm RowdyBaBy Sathya**
 
-Here you can search movies in inline mode. Just press following buttons and start searching.
+Here you can search my Episodes in inline mode. Just press following buttons and start searching.
 """
 
-SHARE_BUTTON_TEXT = 'Checkout {username} for searching movies'
+SHARE_BUTTON_TEXT = 'Checkout {username} for searching Sathya Serial Episodes'
 AUTH_CHANEL = environ['FORCE_JOIN_USERNAME']
