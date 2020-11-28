@@ -28,12 +28,12 @@ async def sendtoall(bot, message):
             reply_to_message_id=message.message_id
        )
        sent_sub = sent_sub + 1
-    await bot.send_message(
+       await bot.send_message(
             chat_id=message.chat.id,
             text="Message sent to {} Subscribers out of {}".format(sent_sub, total_sub),
             reply_to_message_id=message.message_id
-    )
-    return
+       )
+       return
 
 @Client.on_message(filters.command('start'))
 async def start(bot, message):
