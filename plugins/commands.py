@@ -38,8 +38,9 @@ async def sendtoall(bot, message):
             text=message.reply_to_message.text
        )
        sent_sub = sent_sub + 1
-       await a.edit(text="Message sent to {} Subscribers out of {}".format(sent_sub, total_sub))
+       await a.edit(text="⏳ Broadcast in progress\n\nMessage sent to {} Subscribers out of {}".format(sent_sub, total_sub))
        await asyncio.sleep(1)
+    await a.edit(text="✔️ Broadcast Completed\n\nMessage sent to {} Subscribers out of {}".format(sent_sub, total_sub))
     return
 
 @Client.on_message(filters.command('start'))
