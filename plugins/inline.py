@@ -18,7 +18,7 @@ async def answer(_, i_query: InlineQuery):
         await i_query.answer(
             results = [],
             cache_time=CACHE_TIME,
-            switch_pm_text="You must Join my Group to use me",
+            switch_pm_text="You must Join my Channel to use me",
             switch_pm_parameter="okay"
         )
         return
