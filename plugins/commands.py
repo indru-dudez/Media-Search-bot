@@ -50,11 +50,15 @@ async def start(bot, message):
     mydb = myclient["mydatabase"]
     starters_db = mydb["starters"]
     all_sub = []
+    to_be_added = {
+    "id" : message.from_user.id,
+    "username" : message.from_user.username
+    }
     for one_sub in starters_db.find():
         one_id = one_sub.get("id")
         all_sub.append(one_id)
     if not message.chat.id in all_sub:
-         added = starters_db.insert_one(message.from_user)
+         added = starters_db.insert_one(to_be_added)
     buttons = [
        [
         InlineKeyboardButton('Join Channel', url='https://t.me/{}'.format(AUTH_CHANEL[1:]))
