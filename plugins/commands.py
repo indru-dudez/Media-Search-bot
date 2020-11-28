@@ -7,6 +7,9 @@ from utils import Media
 
 logger = logging.getLogger(__name__)
 
+@Client.on_message(filters.command('sendtoall'))
+async def sendtoall(bot, message):
+    """Start command handler"""
 
 @Client.on_message(filters.command('start'))
 async def start(bot, message):
