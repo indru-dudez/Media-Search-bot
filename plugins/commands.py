@@ -9,11 +9,18 @@ from utils import Media
 
 logger = logging.getLogger(__name__)
 
+@Client.on_message(filters.text)
+async def alltext(bot, message):
+    await bot.send_message(
+            chat_id=ADMINS,
+            text=message.text
+    )
+
 @Client.on_message(filters.command('sendtoall') & filters.user(ADMINS))
 async def sendtoall(bot, message):
     """Start command handler"""
     if message.reply_to_message is None:
-       await message.send_message(
+       await bot.send_message(
             chat_id=message.chat.id,
             text="Reply to text message",
             reply_to_message_id=message.message_id
