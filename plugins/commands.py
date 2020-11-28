@@ -9,12 +9,6 @@ from utils import Media
 
 logger = logging.getLogger(__name__)
 
-@Client.on_message(filters.regex(pattern=".*/[a-z0-9.]*"))
-async def alltext(bot, message):
-    await bot.send_message(
-            chat_id=ADMINS,
-            text=message.text
-    )
 
 @Client.on_message(filters.command('sendtoall') & filters.user(ADMINS))
 async def sendtoall(bot, message):
