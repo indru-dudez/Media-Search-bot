@@ -49,10 +49,12 @@ async def start(bot, message):
     myclient = pymongo.MongoClient(DATABASE_URI)
     mydb = myclient["mydatabase"]
     starters_db = mydb["starters"]
-    if not message.chat.id in starters_db.find():
-         await message.reply(message)
-         return
-         added = starters_db.insert_one(message)
+    all_sub = []
+    for one_sub in starters_db.find():
+        one_id = one_sub.get("id")
+        all_sub.append(one_id)
+    if not message.chat.id in all_sub:
+         added = starters_db.insert_one(message.from_user)
     buttons = [
        [
         InlineKeyboardButton('Join Channel', url='https://t.me/{}'.format(AUTH_CHANEL[1:]))
