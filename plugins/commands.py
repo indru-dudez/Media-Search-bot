@@ -19,12 +19,20 @@ async def sendtoall(bot, message):
     subscribers = await bot.get_chat_members(
                       chat_id=AUTH_CHANEL
                   )
+    total_sub = count(subscribers)
+    sent_sub = 0
     for sent in subscribers:
        await bot.send_message(
             chat_id=message.chat.id,
-            text=sent,
+            text=message.reply_to_message,
             reply_to_message_id=message.message_id
        )
+       sent_sub = sent_sub + 1
+    await bot.send_message(
+            chat_id=message.chat.id,
+            text="Message sent to {} Subscribers out of {}".format(sent_sub, total_sub),
+            reply_to_message_id=message.message_id
+    )
     return
 
 @Client.on_message(filters.command('start'))
