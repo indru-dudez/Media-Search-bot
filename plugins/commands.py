@@ -1,5 +1,6 @@
 import os
 import logging
+import pymongo
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from info import START_MSG, CHANNELS, ADMINS, AUTH_CHANEL, DATABASE_URI
@@ -19,7 +20,10 @@ async def sendtoall(bot, message):
     subscribers = await bot.get_chat_members(
                       chat_id=AUTH_CHANEL
                   )
-    total_sub = len(subscribers)
+    myclient = pymongo.MongoClient(DATABASE_URI)
+    mydb = myclient["mydatabase"]
+    starters_db = mydb["starters"]
+    total_sub = len(starters_db)
     sent_sub = 0
     for sent in subscribers:
        await bot.send_message(
@@ -38,6 +42,11 @@ async def sendtoall(bot, message):
 @Client.on_message(filters.command('start'))
 async def start(bot, message):
     """Start command handler"""
+    myclient = pymongo.MongoClient(DATABASE_URI)
+    mydb = myclient["mydatabase"]
+    starters_db = mydb["starters"]
+    if not message.chat.id in starters_db:
+         added = starters_db.insert_one(message.chat.id)  
     buttons = [
        [
         InlineKeyboardButton('Join Channel', url='https://t.me/{}'.format(AUTH_CHANEL[1:]))
