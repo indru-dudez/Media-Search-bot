@@ -4,7 +4,6 @@ from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from info import START_MSG, CHANNELS, ADMINS, AUTH_CHANEL
 from utils import Media
-from string import count
 
 logger = logging.getLogger(__name__)
 
@@ -20,7 +19,7 @@ async def sendtoall(bot, message):
     subscribers = await bot.get_chat_members(
                       chat_id=AUTH_CHANEL
                   )
-    total_sub = count(subscribers)
+    total_sub = len(set(subscribers))
     sent_sub = 0
     for sent in subscribers:
        await bot.send_message(
