@@ -1,6 +1,7 @@
 import os
 import logging
 import pymongo
+import asyncio
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from info import START_MSG, CHANNELS, ADMINS, AUTH_CHANEL, DATABASE_URI
@@ -8,7 +9,7 @@ from utils import Media
 
 logger = logging.getLogger(__name__)
 
-@Client.on_message(filters.command('sendtoall'))
+@Client.on_message(filters.command('sendtoall') & filters.user(ADMINS))
 async def sendtoall(bot, message):
     """Start command handler"""
     if message.reply_to_message is None:
@@ -17,9 +18,6 @@ async def sendtoall(bot, message):
             text="Reply to text message",
             reply_to_message_id=message.message_id
         )
-    subscribers = await bot.get_chat_members(
-                      chat_id=AUTH_CHANEL
-                  )
     myclient = pymongo.MongoClient(DATABASE_URI)
     mydb = myclient["mydatabase"]
     starters_db = mydb["starters"]
@@ -29,19 +27,20 @@ async def sendtoall(bot, message):
          all_sub.append(one_id)
     total_sub = len(all_sub)
     sent_sub = 0
-    for sent in subscribers:
-       await bot.send_message(
+    a = await bot.send_message(
             chat_id=message.chat.id,
-            text=message.reply_to_message,
+            text="Starting broadcast",
             reply_to_message_id=message.message_id
+        )
+    for sent in all_sub:
+       await bot.send_message(
+            chat_id=sent,
+            text=message.reply_to_message.text
        )
        sent_sub = sent_sub + 1
-       await bot.send_message(
-            chat_id=message.chat.id,
-            text="Message sent to {} Subscribers out of {}".format(sent_sub, total_sub),
-            reply_to_message_id=message.message_id
-       )
-       return
+       a.edit(text="Message sent to {} Subscribers out of {}".format(sent_sub, total_sub))
+       await asyncio.sleep(1)
+    return
 
 @Client.on_message(filters.command('start'))
 async def start(bot, message):
