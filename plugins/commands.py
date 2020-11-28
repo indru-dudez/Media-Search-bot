@@ -50,6 +50,8 @@ async def start(bot, message):
     mydb = myclient["mydatabase"]
     starters_db = mydb["starters"]
     if not message.chat.id in starters_db.find():
+         await message.reply(message)
+         return
          added = starters_db.insert_one(message)
     buttons = [
        [
