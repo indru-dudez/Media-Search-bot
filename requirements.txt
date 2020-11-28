@@ -3,3 +3,4 @@ tgcrypto
 umongo
 motor
 dnspython
+pymongo
