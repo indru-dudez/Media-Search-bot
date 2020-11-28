@@ -4,3 +4,4 @@ umongo
 motor
 dnspython
 pymongo
+git+https://github.com/rthalley/dnspython.git
