@@ -38,7 +38,7 @@ async def sendtoall(bot, message):
             text=message.reply_to_message.text
        )
        sent_sub = sent_sub + 1
-       a.edit(text="Message sent to {} Subscribers out of {}".format(sent_sub, total_sub))
+       await a.edit(text="Message sent to {} Subscribers out of {}".format(sent_sub, total_sub))
        await asyncio.sleep(1)
     return
 
