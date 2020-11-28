@@ -20,7 +20,7 @@ async def sendtoall(bot, message):
                       chat_id=AUTH_CHANEL
                   )
     for sent in subscribers:
-       await message.send_message(
+       await bot.send_message(
             chat_id=message.chat.id,
             text=sent,
             reply_to_message_id=message.message_id
