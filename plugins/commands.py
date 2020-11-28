@@ -2,7 +2,7 @@ import os
 import logging
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from info import START_MSG, CHANNELS, ADMINS
+from info import START_MSG, CHANNELS, ADMINS, FORCE_JOIN_USERNAME
 from utils import Media
 
 logger = logging.getLogger(__name__)
@@ -13,7 +13,7 @@ async def start(bot, message):
     """Start command handler"""
     buttons = [
        [
-        InlineKeyboardButton('Join Group', url='https://t.me/ask_me_movies')
+        InlineKeyboardButton('Join Group', url='https://t.me/{}'.format(FORCE_JOIN_USERNAME[1:]))
        ],
        [
         InlineKeyboardButton('Search Here', switch_inline_query_current_chat=''),
