@@ -29,4 +29,4 @@ Here you can search movies in inline mode. Just press following buttons and star
 """
 
 SHARE_BUTTON_TEXT = 'Checkout {username} for searching movies'
-AUTH_CHANEL = "@ask_me_movies"
+AUTH_CHANEL = environ['FORCE_JOIN_USERNAME']
