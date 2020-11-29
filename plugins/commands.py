@@ -34,11 +34,14 @@ async def sendtoall(bot, message):
             reply_to_message_id=message.message_id
         )
     for sent in all_sub:
-       await bot.send_message(
+       try:
+         await bot.send_message(
             chat_id=sent,
             text=message.reply_to_message.text
-       )
-       sent_sub = sent_sub + 1
+         )
+         sent_sub = sent_sub + 1
+       except:
+         pass
        await a.edit(text="⏳ Broadcast in progress\n\nMessage sent to {} Subscribers out of {}".format(sent_sub, total_sub))
        await asyncio.sleep(1)
     await a.edit(text="✔️ Broadcast Completed\n\nMessage sent to {} Subscribers out of {}".format(sent_sub, total_sub))
